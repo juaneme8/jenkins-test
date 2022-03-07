@@ -1,6 +1,6 @@
 pipeline {
   def app
-  agent node
+  agent any
 
 environment {
     registry = "registry.cime.com.ar/jenkins-test"  
@@ -12,6 +12,11 @@ environment {
 
   stages {
    stage('Build image') {
+     agent {
+        node {
+          label 'master'
+        }
+      }  
         /* This builds the actual image; synonymous to docker build on the command line */
 
         app = docker.build("juaneme8/hellonode")
