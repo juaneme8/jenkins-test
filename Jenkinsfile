@@ -8,7 +8,9 @@ pipeline {
   stages {
    stage('Build image') {
       steps {
-        dockerImage = docker.build("juaneme8/hellonode")
+        script{
+          dockerImage = docker.build("juaneme8/hellonode")
+        }
       }
     }
 
