@@ -12,11 +12,7 @@ environment {
 
   stages {
    stage('Build image') {
-     agent {
-        node {
-          label 'master'
-        }
-      }  
+
         /* This builds the actual image; synonymous to docker build on the command line */
 
         dockerImage = docker.build("juaneme8/hellonode")
