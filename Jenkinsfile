@@ -1,5 +1,6 @@
-node {
+pipeline {
   def app
+  agent node
 
 environment {
     registry = "registry.cime.com.ar/jenkins-test"  
