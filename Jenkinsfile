@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('') {
+      steps {
+        telegramSend(message: 'Hola soy el bot de Jenkins!', chatId: 552249970)
+      }
+    }
+
   }
 }
