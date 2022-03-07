@@ -27,7 +27,7 @@ environment {
                 POST https://api.telegram.org/bot${TOKEN}/sendMessage \
                 -d chat_id=${CHAT_ID} \
                 -d parse_mode="HTML" \
-                -d text="🛠 **Jenkins CI:** Iniciando build $BUILD_DISPLAY_NAME $JOB_NAME"'
+                -d text="🛠 <b>Jenkins CI:</b> Iniciando build <b>$BUILD_DISPLAY_NAME</b> $JOB_NAME"'
               }
             }
         }
