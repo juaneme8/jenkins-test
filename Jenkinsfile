@@ -2,26 +2,32 @@ pipeline {
   agent any
 
   environment {
-    registry = "registry.cime.com.ar/jenkins-test"  
-    tagName = "${env.BRANCH_NAME == "main" ? "latest" : "dev"}"  
-    dockerFile = "${env.BRANCH_NAME == "main" ? "Dockerfile" : "Dockerfile.staging"}"  
-    registryCredential = 'registry'
     dockerImage = ''
   }
 
   stages {
    stage('Build image') {
-
-        /* This builds the actual image; synonymous to docker build on the command line */
-
         dockerImage = docker.build("juaneme8/hellonode")
     }
 
     stage('Push image') {
-      /* Finally, we'll push the image with two tags:First, the incremental build number from Jenkins Second, the 'latest' tag.Pushing multiple tags is cheap, as all the layers are reused. */
+      agent {
+        node {
+          label 'master'
+        }
+      }  
+      
+      when { 
+        beforeAgent true
+        anyOf {
+          branch 'main'
+          branch 'staging' 
+        }
+      }
+
       steps{
         script {
-          docker.withRegistry('https://registry.cime.com.ar', 'dockerhub-credentials') {
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
             dockerImage.push("${env.BUILD_NUMBER}")
             dockerImage.push("latest")
           }
