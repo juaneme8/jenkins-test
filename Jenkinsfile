@@ -10,6 +10,7 @@ pipeline {
     stage('Telegram') {
       steps {
         telegramSend(message: 'Hola soy el bot de Jenkins!', chatId: 552249970)
+        echo 'telegramSend \'Hello World\''
       }
     }
 
