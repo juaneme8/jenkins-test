@@ -7,12 +7,9 @@ pipeline {
 
   stages {
      stage('Testing') {
-      agent {
-        docker {
-          image 'node:10'
-        }
-
-      }
+     agent { 
+       label 'master' 
+     }
       steps {
         echo 'testing'
       }
