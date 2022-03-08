@@ -6,6 +6,18 @@ pipeline {
   }
 
   stages {
+     stage('Testing') {
+      agent {
+        docker {
+          image 'node:10'
+        }
+
+      }
+      steps {
+        echo 'testing'
+      }
+    }
+
    stage('Build image') {
       steps {
         script{
