@@ -7,9 +7,7 @@ pipeline {
 
   stages {
      stage('Testing') {
-     agent { 
-       label 'master' 
-     }
+
       steps {
         echo 'testing'
       }
@@ -24,19 +22,6 @@ pipeline {
     }
 
     stage('Push image') {
-      agent {
-        node {
-          label 'master'
-        }
-      }  
-      
-      when { 
-        beforeAgent true
-        anyOf {
-          branch 'main'
-          branch 'staging' 
-        }
-      }
 
       steps{
         script {
