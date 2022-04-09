@@ -16,7 +16,7 @@ pipeline {
    stage('Build image') {
       steps {
         script{
-          dockerImage = docker.build("juaneme8/hellonode")
+          dockerImage = docker.build("registry.cime.com.ar/hellonode")
         }
       }
     }
@@ -25,7 +25,7 @@ pipeline {
 
       steps{
         script {
-          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+          docker.withRegistry('https://registry.cime.com.ar', 'registryCredentials') {
             dockerImage.push("${env.BUILD_NUMBER}")
             dockerImage.push("latest")
           }
@@ -39,6 +39,7 @@ pipeline {
               
               withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
               string(credentialsId: 'telegramChatId', variable: 'CHAT_ID')]) {
+                
                 sh '''
                 curl -x 172.30.221.240:8080 -s -X \
                 POST https://api.telegram.org/bot${TOKEN}/sendMessage \
