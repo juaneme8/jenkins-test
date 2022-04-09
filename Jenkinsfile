@@ -39,12 +39,13 @@ pipeline {
               
               withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
               string(credentialsId: 'telegramChatId', variable: 'CHAT_ID')]) {
-                
-                sh 'curl -x 172.30.221.240:8080 -s -X \
+                sh '''
+                curl -x 172.30.221.240:8080 -s -X \
                 POST https://api.telegram.org/bot${TOKEN}/sendMessage \
                 -d chat_id=${CHAT_ID} \
                 -d parse_mode="HTML" \
-                -d text="🚀  <b>Jenkins CI:</b> <b>Pushing Notification</b> about $JOB_NAME"'
+                -d text="🚀  <b>Jenkins CI:</b> <b>Iniciando build $BUILD_DISPLAY_NAME</b> $JOB_NAME"
+                '''
               }
             }
         }
